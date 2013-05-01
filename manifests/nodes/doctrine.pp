@@ -1,5 +1,12 @@
 node 'doctrine.local'
 {
+    class {"dns_issue_hack":
+        stage => init;
+    }
+    class {"update_sources":
+        stage => init;
+    }
+
     class { 'postgresql::server':
         config_hash => {
             'ip_mask_deny_postgres_user' => '0.0.0.0/32',

@@ -6,6 +6,9 @@ Vagrant::Config.run do |config|
   config.vm.network :hostonly,"33.33.33.10"
   config.vm.customize ["modifyvm", :id, "--memory", 2048]
 
+  config.vm.forward_port 3306, 83306
+  config.vm.forward_port 5432, 85432
+
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
     puppet.module_path = "modules"
