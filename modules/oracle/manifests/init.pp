@@ -41,8 +41,6 @@ class oracle::server {
       user => root,
       unless => "/bin/mount | grep /dev/shm 2>/dev/null";
   }
-
-  Exec["apt-update"] -> Package <| |>
 }
 
 class oracle::swap {
@@ -115,6 +113,7 @@ class oracle::xe {
                   File["/etc/profile.d/oracle-env.sh"],
                   File["/tmp/xe.rsp"],
                   File["/var/lock/subsys/listener"],
+                  Service["oracle-xe"],
                   Exec["set up shm"],
                   Exec["enable swapfile"]],
       creates => "/etc/default/oracle-xe";
