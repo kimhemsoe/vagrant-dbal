@@ -1,0 +1,40 @@
+node 'doctrine.local'
+{
+    class { 'postgresql::server':
+        config_hash => {
+            'ip_mask_deny_postgres_user' => '0.0.0.0/32',
+            'ip_mask_allow_all_users'    => '0.0.0.0/0',
+            'listen_addresses'           => '*',
+            'ipv4acls'                   => ['hostssl all johndoe 192.168.0.0/24 cert'],
+            'postgres_password'          => 'doctrine',
+        },
+    }
+
+    postgresql::db { 'doctrine_tests':
+      user     => 'doctrine',
+      password => 'doctrine'
+    }
+
+    postgresql::db { 'doctrine_tests_tmp':
+      user     => 'doctrine',
+      password => 'doctrine'
+    }
+
+    class { 'mysql::server':
+      config_hash => { 'root_password' => '' }
+    }
+
+    mysql::db { 'doctrine_tests':
+        user     => 'doctrine',
+        password => 'doctrine',
+        host     => 'localhost',
+        grant    => ['all'],
+    }
+
+    mysql::db { 'doctrine_tests_tmp':
+        user     => 'doctrine_tmp',
+        password => 'doctrine',
+        host     => 'localhost',
+        grant    => ['all'],
+    }
+}
