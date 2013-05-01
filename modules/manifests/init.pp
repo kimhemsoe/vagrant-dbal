@@ -1,5 +1,10 @@
 class oracle::server {
 
+  exec { "apt-update":
+      command => "/usr/bin/apt-get -y update",
+      timeout => 3600;
+  }
+
   package {
     ["alien", "bc", "libaio1", "unixodbc", "unzip"]:
       ensure => installed;

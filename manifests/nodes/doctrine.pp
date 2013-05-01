@@ -2,9 +2,18 @@ node 'doctrine.local'
 {
     class {"dns_issue_hack":
         stage => init;
-    }
+    } ->
     class {"update_sources":
         stage => init;
+    }
+
+    include oracle::server
+    include oracle::swap
+    include oracle::xe
+
+    user { "vagrant":
+        groups => "dba",
+        require => Service["oracle-xe"],
     }
 
     class { 'postgresql::server':
