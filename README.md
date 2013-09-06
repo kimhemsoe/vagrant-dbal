@@ -25,6 +25,28 @@ this project.
 
 You can use Oracle with the admin account "system" and password "manager".
 
+The following parts of `oracle.phpunit.xml` then works on your system:
+
+```xml
+    <!-- "Real" test database -->
+    <var name="db_type" value="oci8"/>
+    <var name="db_host" value="localhost" />
+    <var name="db_username" value="doctrine_tests" />
+    <var name="db_password" value="manager" />
+    <var name="db_name" value="XE" />
+    <var name="db_port" value="81521"/>
+    <var name="db_event_subscribers" value="Doctrine\DBAL\Event\Listeners\OracleSessionInit"/>
+
+    <!-- Database for temporary connections (i.e. to drop/create the main database) -->
+    <var name="tmpdb_type" value="oci8"/>
+    <var name="tmpdb_host" value="localhost" />
+    <var name="tmpdb_username" value="system" />
+    <var name="tmpdb_password" value="manager" />
+    <var name="tmpdb_name" value="XE" />
+    <var name="tmpdb_port" value="81521"/>
+```xml
+
+
 ## Acknowledgements
 
 The Oracle Module is integrated from: https://github.com/hilverd/vagrant-ubuntu-oracle-xe
