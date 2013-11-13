@@ -5,10 +5,11 @@ Vagrant::Config.run do |config|
   config.vm.host_name = "doctrine.local"
   config.vm.network :hostonly,"33.33.33.11"
   config.vm.customize ["modifyvm", :id, "--memory", 2048]
+  config.vm.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 
-  config.vm.forward_port 3306, 83306
-  config.vm.forward_port 5432, 85432
-  config.vm.forward_port 1521, 81521
+  config.vm.forward_port 3306, 13306
+  config.vm.forward_port 5432, 15432
+  config.vm.forward_port 1521, 11521
 
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "manifests"
